@@ -1,41 +1,38 @@
 import streamlit as st
 import random
 
-# Set the range
-min_value = 1  
-max_value = 1000  
-
-# Add custom CSS for colors
 st.markdown(
     """
     <style>
     body {
-        background-color: #f0f8ff; /* Light blue background */
-        color: #333333; /* Dark gray text color */
+        background-color: #f0f8ff;
+        color: #333333;
     }
     .stButton>button {
-        background-color: #4CAF50; /* Green button */
+        background-color: #4CAF50;
         color: white;
         border-radius: 10px;
         border: none;
         padding: 10px 20px;
     }
     .stButton>button:hover {
-        background-color: #45a049; /* Darker green on hover */
+        background-color: #45a049;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# Streamlit app
 st.title("🎲 Random Number Generator")
 
-# Display range
-st.write(f"Generating a random number between **{min_value}** and **{max_value}**.")
+# User inputs for range
+st.subheader("Choose your range:")
+min_value = st.number_input("Enter the minimum value:", value=1, step=1)
+max_value = st.number_input("Enter the maximum value:", value=1000, step=1)
 
-# Button to generate a random number
-if st.button("Generate"):
-    random_number = random.randint(min_value, max_value)
-    st.success(f"🎉 Random number: {random_number}")
-    
+if min_value >= max_value:
+    st.error("The minimum value must be less than the maximum value.")
+else:
+    if st.button("Generate"):
+        random_number = random.randint(min_value, max_value)
+        st.success(f"🎉 Random number: {random_number}")
